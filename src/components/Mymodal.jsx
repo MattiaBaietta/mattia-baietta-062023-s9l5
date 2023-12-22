@@ -12,8 +12,13 @@ const Mymodal = (props) => {
 
 
     const AggiungiCommento = () => {
-        
+        if (selected==false)
+        {
         setSelected(true);
+        }
+        else{
+            setSelected(false)
+        }
       };
     return (
 

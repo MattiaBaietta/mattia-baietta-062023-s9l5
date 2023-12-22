@@ -16,6 +16,7 @@ class EliminaCommenti extends Component {
                 }
 
             })
+            console.log(this.state._id)
             if (commenti.ok) {
                 console.log('eliminato correttamente')
                

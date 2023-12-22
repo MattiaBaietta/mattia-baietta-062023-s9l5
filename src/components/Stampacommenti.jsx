@@ -5,8 +5,8 @@ import EliminaCommenti from "./EliminaCommenti"
 
 class Stampacommenti extends Component {
     state = {
-            elementId: this.props.imdbID,
-            risultati:[]
+        elementId: this.props.imdbID,
+        risultati: []
     }
     Stampacommento = async () => {
         try {
@@ -18,10 +18,10 @@ class Stampacommenti extends Component {
 
             })
             if (commenti.ok) {
-                const results=await commenti.json()
+                const results = await commenti.json()
                 console.log(this.state.elementId)
                 this.setState({
-                        risultati:results,
+                    risultati: results,
 
                 })
             } else {
@@ -36,11 +36,16 @@ class Stampacommenti extends Component {
     componentDidMount() {
         this.Stampacommento()
     }
+    handleEliminaCommento = (commentoId) => {
+        this.setState({
+            selectedCommentId: commentoId,
+        });
+    };
     render() {
         return (
-            
-            this.state.risultati.map(commento=>{
-            return(
+
+            this.state.risultati.map(commento => {
+                return (
                     <>
                         <div>
                             {console.log(commento)}
@@ -49,16 +54,17 @@ class Stampacommenti extends Component {
                         <div>
                             <h2>Rating: {commento.rate} stelle</h2>
                         </div>
-                         <div>
-                        <button onClick={() => this.setState({ selected: !this.state.selected })}>Elimina Commento</button>
-                        {this.state.selected && <EliminaCommenti _id={commento._id}  />}
-                    </div> 
+                        <div>
+                            <button onClick={() => this.handleEliminaCommento(commento._id)}>Elimina Commento</button>
+                            {this.state.selectedCommentId === commento._id && <EliminaCommenti _id={commento._id} />}
+                        </div>
+                    
                     </>
                 )
             })
 
 
         )
-    }
+}
 }
 export default Stampacommenti

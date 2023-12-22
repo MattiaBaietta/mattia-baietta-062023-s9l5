@@ -34,13 +34,15 @@ class Creacommenti extends Component {
             console.log('error')
         }
     }
-    render() {
+    componentDidMount() {
+        this.Aggiungicommento();
+      }
+      render() {
         return (
             null
         )
     }
-    componentDidMount() {
-        this.Aggiungicommento();
-      }
 }
+    
+
 export default Creacommenti
