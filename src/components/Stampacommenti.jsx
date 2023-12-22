@@ -1,7 +1,5 @@
-
 import { Component } from "react"
-import EliminaCommenti from "./EliminaCommenti"
-
+import eliminacommento from "./Eliminacommento"
 
 class Stampacommenti extends Component {
     state = {
@@ -19,7 +17,6 @@ class Stampacommenti extends Component {
             })
             if (commenti.ok) {
                 const results = await commenti.json()
-                console.log(this.state.elementId)
                 this.setState({
                     risultati: results,
 
@@ -33,6 +30,7 @@ class Stampacommenti extends Component {
             console.log('error')
         }
     }
+
     componentDidMount() {
         this.Stampacommento()
     }
@@ -46,20 +44,21 @@ class Stampacommenti extends Component {
 
             this.state.risultati.map(commento => {
                 return (
-                    <>
-                        <div>
-                            {console.log(commento)}
-                            <h2>Commento: {commento.comment}</h2>
-                        </div>
-                        <div>
-                            <h2>Rating: {commento.rate} stelle</h2>
-                        </div>
-                        <div>
-                            <button onClick={() => this.handleEliminaCommento(commento._id)}>Elimina Commento</button>
-                            {this.state.selectedCommentId === commento._id && <EliminaCommenti _id={commento._id} />}
-                        </div>
                     
-                    </>
+                       <div key={commento._id}>
+                            <div>
+                                <h2>Commento: {commento.comment}</h2>
+                            </div>
+                            <div>
+                                <h2>Rating: {commento.rate} stelle</h2>
+                            </div>
+                            <div>
+                                <button onClick={() => eliminacommento(commento._id)}>Elimina Commento</button>
+                                {/* {this.state.selectedCommentId === commento._id && <EliminaCommenti _id={commento._id} />} */}
+                            </div>
+                       </div>
+                    
+                    
                 )
             })
 

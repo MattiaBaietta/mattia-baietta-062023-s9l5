@@ -34,9 +34,9 @@ class Creacommenti extends Component {
             console.log('error')
         }
     }
-    componentDidMount() {
-        this.Aggiungicommento();
-      }
+     componentDidMount() {
+         this.Aggiungicommento();
+       }
       render() {
         return (
             null

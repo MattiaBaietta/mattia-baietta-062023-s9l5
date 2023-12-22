@@ -48,12 +48,13 @@ class ListaFilm extends React.Component {
             selectedFilm: prevState.selectedFilm === imdbID ? null : imdbID,
         }));
     }
-
     render() {
+        
         return (
             <>
                 {this.state.arrayFilm.map(rigafilm => (
-                    <Row key={rigafilm.imdbID}>
+                   
+                    <Row key={rigafilm.totalResults}>
                         {rigafilm.Search.slice(0, 5).map(film => (
                             <Col onClick={() => this.handleFilmClick(film.imdbID)} key={film.imdbID}>
                                 <Card>
