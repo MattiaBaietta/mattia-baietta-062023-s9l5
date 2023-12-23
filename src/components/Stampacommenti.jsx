@@ -17,6 +17,7 @@ class Stampacommenti extends Component {
             })
             if (commenti.ok) {
                 const results = await commenti.json()
+                console.log(results)
                 this.setState({
                     risultati: results,
 

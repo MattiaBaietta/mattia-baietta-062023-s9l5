@@ -12,6 +12,9 @@ class ListaFilm extends React.Component {
             isLoading: true,
             arrayFilm: [],
             selectedFilm: null,
+            cercafilm: "",
+            clicksearch: false,
+            tempfilm:""
         };
     }
 
@@ -42,32 +45,64 @@ class ListaFilm extends React.Component {
     componentDidMount() {
         this.Fetchlistafilm();
     }
-
+    leggiTextbox = (event) => {
+        this.setState({ tempfilm: event.target.value });
+       
+    };
     handleFilmClick = (imdbID) => {
         this.setState(prevState => ({
             selectedFilm: prevState.selectedFilm === imdbID ? null : imdbID,
         }));
     }
+    handleClickSearch = () => {
+        this.setState({ clicksearch: true });
+        this.setState({cercafilm:this.state.tempfilm})
+    }
     render() {
-        
+
         return (
             <>
+                <div>
+                    <input onChange={this.leggiTextbox} type="text" name="" id="" />
+                    <input onClick={this.handleClickSearch} type="button" value="Cerca Film" />
+                </div>
+
                 {this.state.arrayFilm.map(rigafilm => (
-                   
+
                     <Row key={rigafilm.totalResults}>
-                        {rigafilm.Search.slice(0, 5).map(film => (
-                            <Col onClick={() => this.handleFilmClick(film.imdbID)} key={film.imdbID}>
-                                <Card>
-                                    <Card.Img variant="top" src={film.Poster} />
-                                    <Card.Body>
-                                        <Card.Title>{film.Title}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        ))}
+                        {rigafilm.Search.slice(0, 5).map(film => {
+                            if (this.state.clicksearch === true) {
+                                if(film.Title.toLowerCase().includes(this.state.cercafilm.toLowerCase())){
+                                    return(
+                                <Col onClick={() => this.handleFilmClick(film.imdbID)} key={film.imdbID}>
+                                    <Card>
+                                        <Card.Img variant="top" src={film.Poster} />
+                                        <Card.Body>
+                                            <Card.Title>{film.Title}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>)}
+                                
+                            }
+                            else{
+                                return(
+                                <Col onClick={() => this.handleFilmClick(film.imdbID)} key={film.imdbID}>
+                                    <Card>
+                                        <Card.Img variant="top" src={film.Poster} />
+                                        <Card.Body>
+                                            <Card.Title>{film.Title}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                )
+                            }
+                            
+                        })}
+                        
                     </Row>
                 ))}
-                {this.state.selectedFilm && <Mymodal imdbID={this.state.selectedFilm} />}
+                
+                {this.state.selectedFilm && <Mymodal imdbID={this.state.selectedFilm} title={this.state.Title}/>}
             </>
         );
     }
